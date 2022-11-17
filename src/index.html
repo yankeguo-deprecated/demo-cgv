@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        #main {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1920px;
+            height: 1080px;
+            background-image: url("./cover.png");
+        }
+
+        #text-box {
+            position: absolute;
+            left: 870px;
+            top: 200px;
+            width: 900px;
+            height: 680px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .item {
+            color: gray;
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+            font-size: 30px;
+        }
+
+        #current {
+            color: aliceblue;
+            font-size: 38px;
+            font-weight: 500;
+        }
+
+        #current-progress {
+            color: aliceblue;
+            font-size: 34px;
+            font-weight: 100;
+        }
+
+        #up-1 {
+            font-size: 24px;
+        }
+
+        #down-3 {
+            font-size: 24px;
+        }
+
+        #up-2 {
+            font-size: 28px;
+        }
+
+        #down-2 {
+            font-size: 28px;
+        }
+
+        #up-3 {
+            font-size: 32px;
+        }
+
+        #down-1 {
+            font-size: 32px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="main">
+        <div id="text-box">
+            <div class="item" id="up-1">A01 AAAAA</div>
+            <div class="item" id="up-2">A02 AAAAA</div>
+            <div class="item" id="up-3">A03 AAAAAA</div>
+            <div class="item" id="current">
+                <span id="current-title">B19 Welcome To Our Diabolic Paradise(TV-size)</span>
+                <br />
+                <span id="current-progress">00:00 / 10:33</span>
+            </div>
+            <div class="item" id="down-1">A05 CCCCCCC</div>
+            <div class="item" id="down-2">A06 DDDDDDD</div>
+            <div class="item" id="down-3">A07 EEEEEEEE</div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/jquery@3.6.1/dist/jquery.slim.js"></script>
+    <script>
+        const data = [
+            {
+                "time": 174,
+                "title": "A01 傲慢なる堕天使"
+            },
+            {
+                "time": 92,
+                "title": "A02 My Sweet Maiden(TV-size)"
+            },
+            {
+                "time": 145,
+                "title": "A03 憤怒の魔王サタン"
+            },
+            {
+                "time": 152,
+                "title": "A04 嫉妬の魔王レヴァイアタン"
+            },
+            {
+                "time": 110,
+                "title": "A05 色欲の魔王アスモデウス"
+            },
+            {
+                "time": 126,
+                "title": "A06 強欲の魔王マモン"
+            },
+            {
+                "time": 162,
+                "title": "A07 怠惰の魔王ベルフェゴール"
+            },
+            {
+                "time": 130,
+                "title": "A08 暴食の魔王ベルゼバブ"
+            },
+            {
+                "time": 132,
+                "title": "A09 万魔殿"
+            },
+            {
+                "time": 157,
+                "title": "A10 真理亜"
+            },
+            {
+                "time": 143,
+                "title": "A11 地上の楽園"
+            },
+            {
+                "time": 111,
+                "title": "A12 嫉妬ゆえの暴走"
+            },
+            {
+                "time": 134,
+                "title": "A13 アスモデウスの夜会"
+            },
+            {
+                "time": 64,
+                "title": "A14 官能の甘き誘い"
+            },
+            {
+                "time": 57,
+                "title": "A15 悪徳の愉しみ"
+            },
+            {
+                "time": 63,
+                "title": "A16 悪徳の愉しみ2"
+            },
+            {
+                "time": 147,
+                "title": "A17 気の向くままに"
+            },
+            {
+                "time": 126,
+                "title": "A18 うたかたの歓び"
+            },
+            {
+                "time": 135,
+                "title": "A19 思いがけないやさしさ"
+            },
+            {
+                "time": 148,
+                "title": "A20 心を染める不安"
+            },
+            {
+                "time": 104,
+                "title": "A21 べリアルの暗躍"
+            },
+            {
+                "time": 136,
+                "title": "A22 狡猾なる罠"
+            },
+            {
+                "time": 186,
+                "title": "A23 虚飾の魔王べリアル"
+            },
+            {
+                "time": 142,
+                "title": "B01 地獄の門"
+            },
+            {
+                "time": 160,
+                "title": "B02 解き放たれた魔王"
+            },
+            {
+                "time": 109,
+                "title": "B03 怒涛の海戦"
+            },
+            {
+                "time": 140,
+                "title": "B04 鎮まらぬ怒り"
+            },
+            {
+                "time": 124,
+                "title": "B05 闇の軍勢"
+            },
+            {
+                "time": 157,
+                "title": "B06 魔王の純情"
+            },
+            {
+                "time": 155,
+                "title": "B07 愛しきものよ"
+            },
+            {
+                "time": 136,
+                "title": "B08 地獄の深淵"
+            },
+            {
+                "time": 147,
+                "title": "B09 忌まわしき姦計"
+            },
+            {
+                "time": 134,
+                "title": "B10 逡巡せる断罪者"
+            },
+            {
+                "time": 121,
+                "title": "B11 天界よりの使者"
+            },
+            {
+                "time": 163,
+                "title": "B12 魔界の激突"
+            },
+            {
+                "time": 151,
+                "title": "B13 堕ちた天使"
+            },
+            {
+                "time": 149,
+                "title": "B14 真理亜の魂"
+            },
+            {
+                "time": 193,
+                "title": "B15 天と地の攻防"
+            },
+            {
+                "time": 246,
+                "title": "B16 劫火の黙示録"
+            },
+            {
+                "time": 160,
+                "title": "B17 天使の血"
+            },
+            {
+                "time": 187,
+                "title": "B18 傲慢の魔王ルシファ―"
+            },
+            {
+                "time": 89,
+                "title": "B19 Welcome To Our Diabolic Paradise(TV-size)"
+            }
+        ];
+
+        function formatTime(v) {
+            const m = Math.floor(v / 60);
+            let ms = String(m);
+            if (ms.length == 1) {
+                ms = "0" + ms
+            }
+            const s = v - m * 60;
+            let ss = String(s);
+            if (ss.length == 1) {
+                ss = "0" + ss
+            }
+            return ms + ":" + ss
+        }
+
+        function updateUI(idx, t) {
+            $("#current-title").text(data[idx].title);
+            $("#current-progress").text(formatTime(t) + " / " + formatTime(data[idx].time));
+
+            if (idx > 0) {
+                $("#up-3").text(data[idx - 1].title)
+            } else {
+                $("#up-3").text("")
+            }
+
+            if (idx > 1) {
+                $("#up-2").text(data[idx - 2].title)
+            } else {
+                $("#up-2").text("")
+            }
+
+            if (idx > 2) {
+                $("#up-1").text(data[idx - 3].title)
+            } else {
+                $("#up-1").text("")
+            }
+
+            if (idx < data.length - 1) {
+                $("#down-1").text(data[idx + 1].title)
+            } else {
+                $("#down-1").text("")
+            }
+
+            if (idx < data.length - 2) {
+                $("#down-2").text(data[idx + 2].title)
+            } else {
+                $("#down-2").text("")
+            }
+
+            if (idx < data.length - 3) {
+                $("#down-3").text(data[idx + 3].title)
+            } else {
+                $("#down-3").text("")
+            }
+        }
+
+        const scale = 10;
+
+        var idx = 0;
+
+        async function wait(ms) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(resolve, ms);
+            })
+        }
+
+        async function show(idx) {
+            const startAt = Date.now();
+            const item = data[idx];
+            updateUI(idx, 0);
+            await wait(1000 / scale);
+            while (true) {
+                const t = Math.floor((Date.now() - startAt) * scale / 1000);
+                if (t > item.time) {
+                    return
+                }
+                updateUI(idx, t);
+                await wait(100 / scale);
+            }
+        }
+
+        async function main() {
+            for (let i = 0; i < data.length; i++) {
+                await show(i);
+            }
+        }
+
+        (function () {
+            $(document).ready(function () {
+                updateUI(0, 0);
+                setTimeout(main, 10000);
+            });
+        })();
+    </script>
+</body>
+
+</html>
